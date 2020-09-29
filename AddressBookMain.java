@@ -2,7 +2,7 @@ package Address;
 import java.util.*;
 import java.io.*;
 public class AddressBookMain {
-	private   List<Contacts> contactList = new ArrayList<>();
+	private  static  List<Contacts> contactList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 	public List<Contacts> getList() {
 		return contactList;
@@ -62,27 +62,37 @@ public class AddressBookMain {
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Contact Details:");
-		System.out.println("Enter First Name: ");
-		String fn=sc.nextLine();
-		System.out.println("Enter Last Name: ");
-		String ln=sc.nextLine();
-		System.out.println("Enter Address: ");
-		String add=sc.nextLine();
-		System.out.println("Enter City: ");
-		String c=sc.nextLine();
-		System.out.println("Enter State: ");
-		String s=sc.nextLine();
-		System.out.println("Enter Zip Code: ");
-		String zc=sc.nextLine();
-		System.out.println("Enter Phone Number: ");
-		String pn=sc.nextLine();
-		System.out.println("Enter EmailId: ");
-		String ei=sc.nextLine();
-		Contacts contactObj = new Contacts(fn,ln,ei,c,add,zc,s,pn);
-	    AddressBookMain ob = new AddressBookMain();
-		ob.addContact(contactObj);
-		System.out.println(contactObj);
+		AddressBookMain ob = new AddressBookMain();
+		System.out.println("Enter the number of persons whose contact details are to be added: ");
+		int noOfPersons=sc.nextInt();
+		sc.nextLine();
+		for(int i=0;i<noOfPersons;i++)
+		{
+				System.out.println("Enter Contact Details of Person "+(i+1)+" :");
+				System.out.println("Enter First Name: ");
+				String fn=sc.nextLine();
+				System.out.println("Enter Last Name: ");
+				String ln=sc.nextLine();
+				System.out.println("Enter Address: ");
+				String add=sc.nextLine();
+				System.out.println("Enter City: ");
+				String c=sc.nextLine();
+				System.out.println("Enter State: ");
+				String s=sc.nextLine();
+				System.out.println("Enter Zip Code: ");
+				String zc=sc.nextLine();
+				System.out.println("Enter Phone Number: ");
+				String pn=sc.nextLine();
+				System.out.println("Enter EmailId: ");
+				String ei=sc.nextLine();
+				Contacts contactObj = new Contacts(fn,ln,ei,c,add,zc,s,pn);
+				ob.addContact(contactObj);
+		}
+		for(int j=0;j<contactList.size();j++)
+		{
+			System.out.println("Contact Details of Person "+(j+1)+" :");
+			System.out.println(contactList.get(j));
+		}
 		ob.editContact();
 		System.out.println("Do you want to remove contact details (Y/N-y/n): ");
 		char ch=sc.nextLine().charAt(0);
