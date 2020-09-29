@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.*;
 public class AddressBookMain {
 	private   List<Contacts> contactList = new ArrayList<>();
-
+    Scanner sc = new Scanner(System.in);
 	public List<Contacts> getList() {
 		return contactList;
 	}
@@ -17,7 +17,7 @@ public class AddressBookMain {
 	}
 	public void editContact()
 	{
-		Scanner sc = new Scanner(System.in);
+		//Scanner sc = new Scanner(System.in);
 		System.out.println("Do you want to edit contact details (Y/N-y/n): ");
 		char ch=sc.nextLine().charAt(0);
 		if(ch=='Y' || ch=='y')
@@ -48,6 +48,18 @@ public class AddressBookMain {
 		else
 			System.out.println("Incorrect Input");
 	}
+	public void removeContact(String fname) {
+		for(Contacts x : contactList)
+		{
+		        if(x.getFirstName().equals(fname))
+					{
+					    contactList.remove(x);
+					    System.out.println("Contact Details removed successfully.");
+					    System.exit(0);
+				    }
+		}
+		
+	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Contact Details:");
@@ -72,6 +84,19 @@ public class AddressBookMain {
 		ob.addContact(contactObj);
 		System.out.println(contactObj);
 		ob.editContact();
-}
+		System.out.println("Do you want to remove contact details (Y/N-y/n): ");
+		char ch=sc.nextLine().charAt(0);
+		if(ch=='Y' || ch=='y')
+		{
+			System.out.println("Enter your  First Name: ");
+			String fnam=sc.nextLine();
+			ob.removeContact(fnam);
+		}
+		else
+		{
+			System.out.println("User does not want to remove contact details.");
+			System.exit(0);
+		}
+   }
 }
 
