@@ -5,6 +5,9 @@ import java.util.*;
 public class AddressBook {
     public Map<String, AddressBookMain> addressBook = new TreeMap<String,AddressBookMain>();
     Scanner sc = new Scanner(System.in);
+    public Map<String, List<Contacts>> cityPersonsMap;
+	public Map<String, List<Contacts>> statePersonsMap;
+
     
 	public  void showAddressBooks() {
 		System.out.println("Do you want to view address book (Y/N-y/n): ");
@@ -38,6 +41,35 @@ public class AddressBook {
 						System.out.println("Person is present in inputted city or state.");
 					else
 						System.out.println("Person is not present in inputted city or state.");
+				}
+			}
+		}
+	}
+	public void dictionaryOfCity_PersonORState_Person()
+	{
+		System.out.println("Enter the City Name to maintain CITY_PERSONS dictionary :");
+		String cityName = sc.nextLine();
+		System.out.println("Enter the State Name to maintain STATE_PERSONS dictionary :");
+		String stateName = sc.nextLine();
+		cityPersonsMap = new HashMap<>();
+		statePersonsMap = new HashMap<>();
+		List cityPerson = new ArrayList();
+		List statePerson = new ArrayList();
+		for(String key : addressBook.keySet())
+		{
+			AddressBookMain mainObj = addressBook.get(key);
+			List<Contacts> tempList = mainObj.getContactList();
+			for (Contacts index : tempList) 
+			{
+				if (index.getStateName().equalsIgnoreCase(stateName))
+				{
+					statePerson.add((index.getFirstName() + " " + index.getLastName()));
+					statePersonsMap.put(stateName, statePerson);
+				}
+				if (index.getCityName().equalsIgnoreCase(cityName))
+				{
+					cityPerson.add((index.getFirstName() + " " + index.getLastName()));
+					statePersonsMap.put(stateName, cityPerson);
 				}
 			}
 		}
