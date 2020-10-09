@@ -5,8 +5,8 @@ import java.util.*;
 public class AddressBook {
     public Map<String, AddressBookMain> addressBook = new TreeMap<String,AddressBookMain>();
     Scanner sc = new Scanner(System.in);
-    public Map<String, List<Contacts>> cityPersonsMap;
-	public Map<String, List<Contacts>> statePersonsMap;
+    public Map<String, List<String>> cityPersonsMap;
+	public Map<String, List<String>> statePersonsMap;
 
     
 	public  void showAddressBooks() {
@@ -45,16 +45,33 @@ public class AddressBook {
 			}
 		}
 	}
-	public void dictionaryOfCity_PersonORState_Person()
+	public Map<String, List<String>> dictionaryOfCity_Person()
 	{
 		System.out.println("Enter the City Name to maintain CITY_PERSONS dictionary :");
 		String cityName = sc.nextLine();
+		cityPersonsMap = new HashMap<>();
+		List<String> cityPerson = new ArrayList<>();
+		for(String key : addressBook.keySet())
+		{
+			AddressBookMain mainObj = addressBook.get(key);
+			List<Contacts> tempList = mainObj.getContactList();
+			for (Contacts index : tempList) 
+			{
+				if (index.getCityName().equalsIgnoreCase(cityName))
+				{
+					cityPerson.add((index.getFirstName() + " " + index.getLastName()));
+					cityPersonsMap.put(cityName, cityPerson);
+				}
+			}
+		}
+		return cityPersonsMap ;
+	}
+	public Map<String, List<String>> dictionaryOfState_Person()
+	{
 		System.out.println("Enter the State Name to maintain STATE_PERSONS dictionary :");
 		String stateName = sc.nextLine();
-		cityPersonsMap = new HashMap<>();
 		statePersonsMap = new HashMap<>();
-		List cityPerson = new ArrayList();
-		List statePerson = new ArrayList();
+		List<String> statePerson = new ArrayList<>();
 		for(String key : addressBook.keySet())
 		{
 			AddressBookMain mainObj = addressBook.get(key);
@@ -66,13 +83,27 @@ public class AddressBook {
 					statePerson.add((index.getFirstName() + " " + index.getLastName()));
 					statePersonsMap.put(stateName, statePerson);
 				}
-				if (index.getCityName().equalsIgnoreCase(cityName))
-				{
-					cityPerson.add((index.getFirstName() + " " + index.getLastName()));
-					statePersonsMap.put(stateName, cityPerson);
-				}
 			}
 		}
+		return statePersonsMap ;
+	}
+	public void showCountOfPersonsByCityAndState()
+	{
+		Set<String> cityKey = dictionaryOfCity_Person().keySet();
+		Set<String> stateKey = dictionaryOfState_Person().keySet();
+		String city = "" , state = "" ;
+		for(String stateObj : cityKey)
+		{
+			state = stateObj;
+			break;
+		}
+		for(String cityObj : stateKey)
+		{
+			city = cityObj;
+			break;
+		}
+		System.out.println("Total number of persons in City :" + city + " is :- " + cityKey.size());
+		System.out.println("Total number of persons in State :" + state + " is :- " + stateKey.size());
 	}
 }
 
