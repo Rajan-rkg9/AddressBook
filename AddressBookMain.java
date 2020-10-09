@@ -4,7 +4,7 @@ import java.io.*;
 public class AddressBookMain {
 	public  static  List<Contacts> contactList = new ArrayList<>();
 	public static Map<String, Contacts > addressMap = new HashMap<>();
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
 	public List<Contacts> getList() {
 		return contactList;
 	}
@@ -134,17 +134,26 @@ public class AddressBookMain {
 				System.out.println("User contact details not available.Please enter correct first name.");
 		}			
 	}
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		AddressBookMain mainObj = new AddressBookMain();
-		mainObj.addContact();
-		for(int j=0;j<contactList.size();j++)
+	public void checkDuplicateEntryOfName()
+	{
+		int x= 0;
+		System.out.println("Enter first and last name to check for repeatition :");
+		String firstName = sc.nextLine();
+		String lastName = sc.nextLine();
+		for(Contacts conObj : contactList)
 		{
-			System.out.println("Contact Details of Person "+(j+1)+" :");
-			System.out.println(contactList.get(j));
+			if((conObj.getFirstName() +" " + conObj.getLastName()).equals(firstName + " " + lastName))
+			{
+				System.out.println("Already a person with similar details exists.");
+				x=1;
+				break;
+			}
 		}
-		mainObj.editContact();
-		mainObj.removeContact();
+			if(x==0)
+				System.out.println("Duplicate entry does not exist.");
+	}
+	public static void main(String[] args) {
+		AddressBookMain mainObj = new AddressBookMain();
 		AddressBook addressObj = new AddressBook();
 		while(true)
 		{
@@ -153,7 +162,7 @@ public class AddressBookMain {
 			if(addressObj.addressBook.containsKey(addressBookName))
 				System.out.println("Address Book with same name already exists");
 			else {
-				System.out.println("\nEnter Details for " + addressBookName);
+				System.out.println("Enter Details for " + addressBookName);
 				mainObj.addContact();
 				addressObj.addressBook.put(addressBookName,mainObj);
 			}
@@ -163,7 +172,15 @@ public class AddressBookMain {
 			else
 				break;
 		}
+		for(int j=0;j<contactList.size();j++)
+		{
+			System.out.println("Contact Details of Person "+(j+1)+" :");
+			System.out.println(contactList.get(j));
+		}
+		mainObj.editContact();
+		mainObj.removeContact();
 		addressObj.showAddressBooks();
+		mainObj.checkDuplicateEntryOfName();
 	}
 }
 

@@ -68,4 +68,12 @@ public class Contacts  {
 		return ("First Name: "+firstName+"\nLastName: "+lastName+"\nEmailId: "+emailId+"\nCity: "+cityName+"\nAddress: "+address+"\nZipCode: "+zipCode+"\nState: "+stateName+"\nPhoneNumber: "+phoneNumber);
 	}
 	
+	public boolean equals(Object obj) {
+		Contacts conObj = (Contacts)obj;
+		if (conObj.getFirstName().equals(this.firstName) && conObj.getLastName().equals(this.lastName) )
+			return true;
+		else
+			return false;
+	}
+	
 }
