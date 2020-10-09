@@ -5,11 +5,11 @@ public class AddressBookMain {
 	public  static  List<Contacts> contactList = new ArrayList<>();
 	public static Map<String, Contacts > addressMap = new HashMap<>();
     static Scanner sc = new Scanner(System.in);
-	public List<Contacts> getList() {
+	public List<Contacts> getContactList() {
 		return contactList;
 	}
 
-	public void setList(List<Contacts> list) {
+	public void setContactList(List<Contacts> list) {
 		this.contactList = list;
 	}
 	public void addContact()
@@ -181,6 +181,7 @@ public class AddressBookMain {
 		mainObj.removeContact();
 		addressObj.showAddressBooks();
 		mainObj.checkDuplicateEntryOfName();
+		addressObj.viewPersonByCityOrState();
 	}
 }
 
